@@ -86,7 +86,7 @@ class _Search2State extends State<Search2> {
       databaseMethods.addChatRoom2(projectRoom, projectId);
 
 
-      Navigator.push(context, MaterialPageRoute(
+      Navigator.pushReplacement(context, MaterialPageRoute(
           builder: (context) =>
               Team(
                 projectId: projectId,
