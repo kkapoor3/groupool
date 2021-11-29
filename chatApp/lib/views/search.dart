@@ -39,13 +39,13 @@ class _SearchState extends State<Search> {
 
   Widget userList(){
     return haveUserSearched ? ListView.builder(
-      shrinkWrap: true,
-      itemCount: searchResultSnapshot.documents.length,
+        shrinkWrap: true,
+        itemCount: searchResultSnapshot.documents.length,
         itemBuilder: (context, index){
-        return userTile(
-          searchResultSnapshot.documents[index].data["userName"],
-          searchResultSnapshot.documents[index].data["userEmail"],
-        );
+          return userTile(
+            searchResultSnapshot.documents[index].data["userName"],
+            searchResultSnapshot.documents[index].data["userEmail"],
+          );
         }) : Container();
   }
 
@@ -63,10 +63,10 @@ class _SearchState extends State<Search> {
 
     databaseMethods.addChatRoom(chatRoom, chatRoomId);
 
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) => Chat(
-        chatRoomId: chatRoomId,
-      )
+    Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) => Chat(
+          chatRoomId: chatRoomId,
+        )
     ));
 
   }
@@ -137,6 +137,7 @@ class _SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Connect"),),
+      backgroundColor: Colors.brown[900],
       body: isLoading ? Container(
         child: Center(
           child: CircularProgressIndicator(),
@@ -155,12 +156,12 @@ class _SearchState extends State<Search> {
                       controller: searchEditingController,
                       style: simpleTextStyle(),
                       decoration: InputDecoration(
-                        hintText: "search Username ...",
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                        border: InputBorder.none
+                          hintText: "search Username ...",
+                          hintStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                          border: InputBorder.none
                       ),
                     ),
                   ),
@@ -169,18 +170,18 @@ class _SearchState extends State<Search> {
                       initiateSearch();
                     },
                     child: Container(
-                      height: 40,
+                        height: 40,
                         width: 40,
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              const Color(0x36FFFFFF),
-                              const Color(0x0FFFFFFF)
-                            ],
-                            begin: FractionalOffset.topLeft,
-                            end: FractionalOffset.bottomRight
-                          ),
-                          borderRadius: BorderRadius.circular(40)
+                            gradient: LinearGradient(
+                                colors: [
+                                  const Color(0x36FFFFFF),
+                                  const Color(0x0FFFFFFF)
+                                ],
+                                begin: FractionalOffset.topLeft,
+                                end: FractionalOffset.bottomRight
+                            ),
+                            borderRadius: BorderRadius.circular(40)
                         ),
                         padding: EdgeInsets.all(12),
                         child: Image.asset("assets/images/search_white.png",

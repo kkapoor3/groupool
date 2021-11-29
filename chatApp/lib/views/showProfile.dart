@@ -8,8 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'addProfile.dart';
-
 class ShowProfile extends StatefulWidget {
   @override
   _ShowProfileState createState() => _ShowProfileState();
@@ -21,22 +19,34 @@ class _ShowProfileState extends State<ShowProfile> {
 
   DatabaseMethods databaseMethods = new DatabaseMethods();
   bool isLoading = false;
-  
+  String fullName;
+
+  String Email;
+
+
+
   setEmail() async{
     Constants.myEmail = await HelperFunctions.getUserEmailSharedPreference();
     await databaseMethods.getProfileInfo(Constants.myEmail)
-          .then((snapshot){
-        setState(() {
-          email=snapshot;
-        });
-        print(snapshot);
-        print(email.documents[0].data['email']);
+        .then((snapshot){
+      setState(() {
+        email=snapshot;
+
       });
+      setState(() {
+        fullName=email.documents[0].data['fullName'];
+        Email=email.documents[0].data['email'];
+        print("Hello");
+      });
+
+    });
   }
 
   @override
   void initState()  {
     setEmail();
+
+
     super.initState();
   }
 
@@ -45,84 +55,48 @@ class _ShowProfileState extends State<ShowProfile> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Profile'),
+          backgroundColor: Colors.brown[900],
           elevation: 0.0,
           centerTitle: false,
-          actions: [
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddProfile()));
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Icon(Icons.edit),
-              ),
-            ),
-          ],
+          actions: [],
         ),
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 100, vertical: 100),
-          child: Center(
-            child:Column(
-              children: [
-                Row(
-                  children: [
-                    Text("Full Name:",style: simpleTextStyle(), textAlign: TextAlign.center),
-                    SizedBox(width: 10,),
-                    Text(email.documents[0].data['fullName'],style: simpleTextStyle(), textAlign: TextAlign.center),
-                  ],
-                ),
-                SizedBox(
-                  height: 26,
-                ),
-                Row(
-                  children: [
-                    Text("Email:",style: simpleTextStyle(),),
-                    SizedBox(width: 10,),
-                    Text(email.documents[0].data['email'],style: simpleTextStyle(),),
-                  ],
-                ),
-                SizedBox(
-                  height: 26,
-                ),
-                Row(
-                  children: [
-                    Text("Source:",style: simpleTextStyle(),),
-                    SizedBox(width: 10,),
-                    Text(email.documents[0].data['source'],style: simpleTextStyle(),),
-                  ],
-                ),
-                SizedBox(
-                  height: 26,
-                ),
-                Row(
-                  children: [
-                    Text("Destination:",style: simpleTextStyle(),),
-                    SizedBox(width: 10,),
-                    Text(email.documents[0].data['destination'],style: simpleTextStyle(),),
-                  ],
-                ),
-                SizedBox(
-                  height: 26,
-                ),
-                Row(
-                  children: [
-                    Text("Time to leave for work:",style: simpleTextStyle(),),
-                    SizedBox(width: 10,),
-                    Text(email.documents[0].data['sourceTime'],style: simpleTextStyle(),),
-                  ],
-                ),
-                SizedBox(
-                  height: 26,
-                ),
-                Row(
-                  children: [
-                    Text("Time to go home:",style: simpleTextStyle(),),
-                    SizedBox(width: 10,),
-                    Text(email.documents[0].data['destinationTime'],style: simpleTextStyle(),),
-                  ],
-                ),
-              ],
+        body: Padding(
+          padding: const EdgeInsets.all(100.0),
+          child: Container(
+            child: Center(
+              child:Column(
+                children: [
+                  Row(
+                    children: [
+                      Text("Full Name:",style: simpleTextStyle(),),
+                      SizedBox(width: 10,),
+                      Text(fullName??'loading',style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("UserName:",style: simpleTextStyle(),),
+                      SizedBox(width: 10,),
+                      Text(Constants.myName,style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text("Email:",style: simpleTextStyle(),),
+                      SizedBox(width: 10,),
+                      Text(Email??'loading',style: simpleTextStyle(),),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         )

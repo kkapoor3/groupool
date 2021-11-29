@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 
 class Chat extends StatefulWidget {
   final String chatRoomId;
+  //final String otheruser;
 
   Chat({this.chatRoomId});
 
@@ -20,6 +21,7 @@ class _ChatState extends State<Chat> {
   Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
   String time = DateFormat.jm().format(DateTime.now());
+  String otherUser;
 
   Widget chatMessages() {
     return StreamBuilder(
@@ -27,16 +29,16 @@ class _ChatState extends State<Chat> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
-                itemCount: snapshot.data.documents.length,
-                itemBuilder: (context, index) {
-                  return MessageTile(
-                    message: snapshot.data.documents[index].data["message"],
-                    sendByMe: Constants.myName ==
-                        snapshot.data.documents[index].data["sendBy"],
-                    name: snapshot.data.documents[index].data["sendBy"],
-                    time: snapshot.data.documents[index].data["time2"],
-                  );
-                })
+            itemCount: snapshot.data.documents.length,
+            itemBuilder: (context, index) {
+              return MessageTile(
+                message: snapshot.data.documents[index].data["message"],
+                sendByMe: Constants.myName ==
+                    snapshot.data.documents[index].data["sendBy"],
+                name: snapshot.data.documents[index].data["sendBy"],
+                time: snapshot.data.documents[index].data["time2"],
+              );
+            })
             : Container();
       },
     );
@@ -68,9 +70,17 @@ class _ChatState extends State<Chat> {
 
   @override
   void initState() {
+
     DatabaseMethods().getChats(widget.chatRoomId).then((val) {
       setState(() {
         chats = val;
+        dynamic l=widget.chatRoomId.split('-');
+        if(l[0]==Constants.myName){
+          otherUser=l[1];
+        }
+        else{
+          otherUser=l[0];
+        }
       });
     });
     super.initState();
@@ -80,7 +90,9 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('me and u',style: TextStyle(color: Colors.white),) ,
+        backgroundColor: Colors.brown[900],
+        title: Text(widget.chatRoomId,style: TextStyle(color: Colors.white),) ,
+
       ),
       body: Container(
         child: Stack(
@@ -96,17 +108,17 @@ class _ChatState extends State<Chat> {
                   children: [
                     Expanded(
                         child: TextField(
-                      focusNode: nod,
-                      controller: messageEditingController,
-                      style: simpleTextStyle(),
-                      decoration: InputDecoration(
-                          hintText: "Message ...",
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          border: InputBorder.none),
-                    )),
+                          focusNode: nod,
+                          controller: messageEditingController,
+                          style: simpleTextStyle(),
+                          decoration: InputDecoration(
+                              hintText: "Message ...",
+                              hintStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                              border: InputBorder.none),
+                        )),
                     SizedBox(
                       width: 16,
                     ),
@@ -161,18 +173,18 @@ class MessageTile extends StatelessWidget {
       alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         margin:
-            sendByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
+        sendByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
         padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
         decoration: BoxDecoration(
             borderRadius: sendByMe
                 ? BorderRadius.only(
-                    topLeft: Radius.circular(23),
-                    topRight: Radius.circular(23),
-                    bottomLeft: Radius.circular(23))
+                topLeft: Radius.circular(23),
+                topRight: Radius.circular(23),
+                bottomLeft: Radius.circular(23))
                 : BorderRadius.only(
-                    topLeft: Radius.circular(23),
-                    topRight: Radius.circular(23),
-                    bottomRight: Radius.circular(23)),
+                topLeft: Radius.circular(23),
+                topRight: Radius.circular(23),
+                bottomRight: Radius.circular(23)),
             gradient: LinearGradient(
               colors: sendByMe
                   ? [const Color(0xff4e342e), const Color(0xff3e2723)]

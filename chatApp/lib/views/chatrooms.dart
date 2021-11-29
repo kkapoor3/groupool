@@ -7,6 +7,7 @@ import 'package:chatapp/services/database.dart';
 import 'package:chatapp/views/chat.dart';
 import 'package:chatapp/views/search.dart';
 import 'package:chatapp/views/showProfile.dart';
+import 'package:chatapp/views/tripHistory.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/views/projectRooms.dart';
 import 'package:chatapp/views/team.dart';
@@ -19,25 +20,25 @@ class ChatRoom extends StatefulWidget {
 class _ChatRoomState extends State<ChatRoom> {
   Stream chatRooms;
 
-//Wrapped the list view builder with Stream Builder
+
   Widget chatRoomsList() {
     return StreamBuilder(
       stream: chatRooms,
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
-          reverse: true,
-                itemCount: snapshot.data.documents.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return ChatRoomsTile(
-                    userName: snapshot.data.documents[index].data['chatRoomId']
-                        .toString()
-                        .replaceAll("_", "")
-                        .replaceAll(Constants.myName, ""),
-                    chatRoomId: snapshot.data.documents[index].data["chatRoomId"],
-                  );
-                })
+            reverse: true,
+            itemCount: snapshot.data.documents.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return ChatRoomsTile(
+                userName: snapshot.data.documents[index].data['chatRoomId']
+                    .toString()
+                    .replaceAll("_", "")
+                    .replaceAll(Constants.myName, ""),
+                chatRoomId: snapshot.data.documents[index].data["chatRoomId"],
+              );
+            })
             : Container();
       },
     );
@@ -61,10 +62,18 @@ class _ChatRoomState extends State<ChatRoom> {
     });
   }
 
+  addTripRoom(){
+    Map<String, dynamic> tripRoom = {
+      "tripId" : Constants.myName,
+    };
+    DatabaseMethods().addTripRoom(tripRoom, Constants.myName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.brown[900],
         title: Text('Chats'),
         elevation: 0.0,
         centerTitle: false,
@@ -77,6 +86,18 @@ class _ChatRoomState extends State<ChatRoom> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Icon(Icons.perm_identity),
+            ),
+          ),
+
+          GestureDetector(
+            onTap: (){
+              addTripRoom();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => tripHistory()));
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Icon(Icons.local_taxi_sharp),
             ),
           ),
 
@@ -127,9 +148,9 @@ class ChatRoomsTile extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         Navigator.push(context, MaterialPageRoute(
-          builder: (context) => Chat(
-            chatRoomId: chatRoomId,
-          )
+            builder: (context) => Chat(
+              chatRoomId: chatRoomId,
+            )
         ));
       },
       child: Container(
