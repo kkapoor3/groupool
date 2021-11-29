@@ -126,6 +126,7 @@ class _PeopleState extends State<People> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Members in the group'),
+        backgroundColor: Colors.brown[900],
         actions: [
           isAdmin
               ? GestureDetector(

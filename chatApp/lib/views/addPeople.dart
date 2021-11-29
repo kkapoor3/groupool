@@ -74,11 +74,11 @@ class _AddPeopleState extends State<AddPeople> {
 
   updateList() async{
     if(widget.people.length!=1) {
-      
+
       await Firestore.instance.collection("projectRoom").document(widget.projectId).updateData({
         "users": widget.people}
       );
-      
+
       Navigator.push(context, MaterialPageRoute(
           builder: (context) =>
               Team(
@@ -167,6 +167,7 @@ class _AddPeopleState extends State<AddPeople> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add People'),
+        backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(
             onTap: (){

@@ -174,6 +174,7 @@ class _Search2State extends State<Search2> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Create Pool'),
+        backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(
             onTap: (){

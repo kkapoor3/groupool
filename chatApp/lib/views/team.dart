@@ -77,6 +77,7 @@ class _TeamState extends State<Team> {
     return Scaffold(
       appBar: AppBar(
         title:Text('Meet'),
+        backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(
             onTap: (){

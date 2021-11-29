@@ -61,6 +61,7 @@ class _ProjectRoomsState extends State<ProjectRooms> {
     return Scaffold(
         appBar: AppBar(
             title: Text("Chat Rooms"),
+            backgroundColor: Colors.brown[900],
             elevation: 0.0,
             centerTitle: false,
             actions: [

@@ -64,6 +64,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('GrouPool')),
+        backgroundColor: Colors.brown[900],
       ),
       body: isLoading
           ? Container(

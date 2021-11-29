@@ -31,10 +31,7 @@ class _AddProfileState extends State<AddProfile>{
     Map<String,String> ProfileDataMap = {
       "email" : emailEditingController.text,
       "fullName" : nameEditingController.text,
-      "source" : sourceEditingController.text,
-      "destination" : destinationEditingController.text,
-      "sourceTime" : sourceTimeEditingController.text,
-      "destinationTime" : destinationTimeEditingController.text,
+
     };
 
     databaseMethods.addProfileInfo(emailEditingController.text, ProfileDataMap);
@@ -47,6 +44,7 @@ class _AddProfileState extends State<AddProfile>{
   Widget build(BuildContext context){
     return Scaffold(
         appBar: AppBar(title:Center(child: Text('Enter Details'))),
+        backgroundColor: Colors.brown[900],
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -73,52 +71,55 @@ class _AddProfileState extends State<AddProfile>{
                 },
                 decoration: textFieldInputDecoration("Full Name"),
               ),
+              // SizedBox(
+              //   height: 16,
+              // ),
+              // TextFormField(
+              //   style: simpleTextStyle(),
+              //   controller: sourceEditingController,
+              //   validator: (val){
+              //     return val.isEmpty || val.length < 3 ? "Enter Name 3+ characters" : null;
+              //   },
+              //   decoration: textFieldInputDecoration("Source Location"),
+              // ),
+              // SizedBox(
+              //   height: 16,
+              // ),
+              // TextFormField(
+              //   style: simpleTextStyle(),
+              //   controller: destinationEditingController,
+              //   validator: (val){
+              //     return val.isEmpty || val.length < 3 ? "Enter Name 3+ characters" : null;
+              //   },
+              //   decoration: textFieldInputDecoration("Destination Location"),
+              // ),
+              // SizedBox(
+              //   height: 16,
+              // ),
+              // TextFormField(
+              //   style: simpleTextStyle(),
+              //   controller: sourceTimeEditingController,
+              //   validator: (val){
+              //     return val.isEmpty || val.length < 3 ? "Enter Name 3+ characters" : null;
+              //   },
+              //   decoration: textFieldInputDecoration("Time at which you leave for work"),
+              // ),
+              // SizedBox(
+              //   height: 16,
+              // ),
+              // TextFormField(
+              //   style: simpleTextStyle(),
+              //   controller: destinationTimeEditingController,
+              //   validator: (val){
+              //     return val.isEmpty || val.length < 3 ? "Enter Name 3+ characters" : null;
+              //   },
+              //   decoration: textFieldInputDecoration("Time at which you leave for home"),
+              // ),
+              // SizedBox(
+              //   height: 56,
+              // ),
               SizedBox(
                 height: 16,
-              ),
-              TextFormField(
-                style: simpleTextStyle(),
-                controller: sourceEditingController,
-                validator: (val){
-                  return val.isEmpty || val.length < 3 ? "Enter Name 3+ characters" : null;
-                },
-                decoration: textFieldInputDecoration("Source Location"),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextFormField(
-                style: simpleTextStyle(),
-                controller: destinationEditingController,
-                validator: (val){
-                  return val.isEmpty || val.length < 3 ? "Enter Name 3+ characters" : null;
-                },
-                decoration: textFieldInputDecoration("Destination Location"),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextFormField(
-                style: simpleTextStyle(),
-                controller: sourceTimeEditingController,
-                validator: (val){
-                  return val.isEmpty || val.length < 3 ? "Enter Name 3+ characters" : null;
-                },
-                decoration: textFieldInputDecoration("Time at which you leave for work"),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextFormField(
-                style: simpleTextStyle(),
-                controller: destinationTimeEditingController,
-                validator: (val){
-                  return val.isEmpty || val.length < 3 ? "Enter Name 3+ characters" : null;
-                },
-                decoration: textFieldInputDecoration("Time at which you leave for home"),
-              ),
-              SizedBox(
-                height: 56,
               ),
               GestureDetector(
                 onTap: (){
