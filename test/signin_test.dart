@@ -38,9 +38,9 @@ class SigninTestingState extends State<SigninTesting> {
 
       await tester.tap(find.byKey(new Key('forgotPasswordKey')));
 
-      await tester.tap(find.byKey(new Key('signinKey')));
+      await tester.tap(find.byKey(new Key('signinKey')), warnIfMissed: false);
 
-      await tester.tap(find.byKey(new Key('signupKey')));
+      await tester.tap(find.byKey(new Key('signupKey')), warnIfMissed: false);
 
       expect(find.text('GrouPool'), findsOneWidget);
 
