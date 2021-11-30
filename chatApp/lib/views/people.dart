@@ -196,7 +196,7 @@ class _PeopleState extends State<People> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Members in the group'),
+        title: Text('People with ride count'),
         backgroundColor: Colors.brown[900],
         actions: [
           isAdmin

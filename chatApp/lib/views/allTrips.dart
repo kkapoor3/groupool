@@ -27,6 +27,7 @@ class _allTripsState extends State<allTrips> {
             itemBuilder: (context, index) {
               //return Text(snapshot.data.documents[index].data["nameOfTheTrip"]);
               return Card(
+                color: Colors.brown,
                 child: Column(
                   children: [
                     Text(snapshot.data.documents[index].data["user"],
@@ -44,12 +45,13 @@ class _allTripsState extends State<allTrips> {
                     Text(snapshot.data.documents[index].data["from"]+" to "+snapshot.data.documents[index].data["untill"],
                       style: TextStyle(fontSize: 20),),
                     snapshot.data.documents[index].data["user"]!=Constants.myName?FlatButton(
-                      textColor: const Color(0xFF6200EE),
+                      color:Colors.brown[900],
                       onPressed: () {
                         // Perform some action
                         sendMessage(snapshot.data.documents[index].data["user"]);
                       },
-                      child: const Text('Message'),
+                      child: const Text('Message',style: TextStyle(color:Colors.grey,fontWeight: FontWeight.bold),),
+
                     ):Container(),
                   ],
                 ),

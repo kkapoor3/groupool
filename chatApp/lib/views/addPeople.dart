@@ -84,7 +84,7 @@ class _AddPeopleState extends State<AddPeople> {
         "usersCount": widget.usersCount}
       );
 
-      Navigator.push(context, MaterialPageRoute(
+      Navigator.pushReplacement(context, MaterialPageRoute(
           builder: (context) =>
               Team(
                 projectId: widget.projectId,
@@ -131,7 +131,7 @@ class _AddPeopleState extends State<AddPeople> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
               decoration: BoxDecoration(
-                  color: isAdded ? Colors.blue : Colors.orange ,
+                  color: isAdded ? Colors.brown : Colors.orange ,
                   borderRadius: BorderRadius.circular(24)
               ),
               child: isAdded ? Text("Added",

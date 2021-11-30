@@ -139,7 +139,7 @@ class _AddProfileState extends State<AddProfile>{
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.brown[800]),
                   onPressed: _selectTime,
-                  child: Text('select the time you leave for work'),
+                  child: Text('select the time you leave for Work'),
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -148,7 +148,7 @@ class _AddProfileState extends State<AddProfile>{
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.brown[800]),
                   onPressed: _selecTime2,
-                  child: Text('select the time you leave for work'),
+                  child: Text('select the time you leave for Home'),
                 ),
                 SizedBox(height: 8),
                 Text(

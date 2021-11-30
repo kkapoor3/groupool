@@ -5,6 +5,7 @@ import 'package:chatapp/services/auth.dart';
 import 'package:chatapp/services/database.dart';
 import 'package:chatapp/views/Commutes.dart';
 import 'package:chatapp/views/tripHistory.dart';
+import 'package:chatapp/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/views/team.dart';
 import 'package:chatapp/helper/theme.dart';
@@ -81,7 +82,10 @@ class _ProjectRoomsState extends State<ProjectRooms> {
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Icon(Icons.local_taxi_sharp),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical:15),
+                    child: Text("My trips",style: simpleTextStyle(),),
+                  ),
                 ),
               ),
 
