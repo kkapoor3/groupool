@@ -3,6 +3,7 @@ import 'package:chatapp/helper/helperfunctions.dart';
 import 'package:chatapp/views/chatrooms.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+//added to git
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
