@@ -51,7 +51,10 @@ class _SignUpState extends State<SignUp> {
               emailEditingController.text);
 
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => AddProfile()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      AddProfile(user: usernameEditingController.text)));
         }
       });
     }
@@ -60,7 +63,10 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text('Register for GrouPool'))),
+      appBar: AppBar(
+        title: Center(child: Text('Register for GrouPool')),
+        backgroundColor: Colors.brown[900],
+      ),
       body: isLoading
           ? Container(
               child: Center(
@@ -168,7 +174,6 @@ class _SignUpState extends State<SignUp> {
                         style: simpleTextStyle(),
                       ),
                       GestureDetector(
-                        key: new Key('signinKey'),
                         onTap: () {
                           widget.toggleView();
                         },

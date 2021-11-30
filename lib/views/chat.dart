@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 
 class Chat extends StatefulWidget {
   final String chatRoomId;
+  //final String otheruser;
 
   Chat({this.chatRoomId});
 
@@ -20,6 +21,7 @@ class _ChatState extends State<Chat> {
   Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = new TextEditingController();
   String time = DateFormat.jm().format(DateTime.now());
+  String otherUser;
 
   Widget chatMessages() {
     return StreamBuilder(
@@ -71,6 +73,12 @@ class _ChatState extends State<Chat> {
     DatabaseMethods().getChats(widget.chatRoomId).then((val) {
       setState(() {
         chats = val;
+        dynamic l = widget.chatRoomId.split('-');
+        if (l[0] == Constants.myName) {
+          otherUser = l[1];
+        } else {
+          otherUser = l[0];
+        }
       });
     });
     super.initState();
@@ -80,8 +88,9 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.brown[900],
         title: Text(
-          'me and u',
+          widget.chatRoomId,
           style: TextStyle(color: Colors.white),
         ),
       ),

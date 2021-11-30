@@ -13,33 +13,25 @@ void main() {
   testWidgets('add profile test', (WidgetTester tester) async {
     await tester.pumpWidget(createWidgetForTesting(child: new AddProfile()));
 
-    expect(find.text('Enter Details'), findsOneWidget);
+    expect(find.text("Enter Details"), findsOneWidget);
 
     await tester.enterText(find.byKey(new Key('emailKey')), 'emailFieldTest');
 
-    await tester.enterText(find.byKey(new Key('nameKey')), 'nameFieldTest');
-
-    await tester.enterText(find.byKey(new Key('sourceKey')), 'sourceFieldTest');
-
-    await tester.enterText(
-        find.byKey(new Key('destinationKey')), 'destinationFieldTest');
-
-    await tester.enterText(find.byKey(new Key('inTimeKey')), 'inTimeFieldTest');
-
-    await tester.enterText(
-        find.byKey(new Key('outTimeKey')), 'outTimeFieldTest');
-
     expect(find.text('emailFieldTest'), findsOneWidget);
+
+    await tester.enterText(find.byKey(new Key('nameKey')), 'nameFieldTest');
 
     expect(find.text('nameFieldTest'), findsOneWidget);
 
+    await tester.enterText(find.byKey(new Key('sourceKey')), 'sourceFieldTest');
+
     expect(find.text('sourceFieldTest'), findsOneWidget);
 
-    expect(find.text('destinationFieldTest'), findsOneWidget);
+    await tester.enterText(find.byKey(new Key('destKey')), 'destFieldTest');
 
-    expect(find.text('inTimeFieldTest'), findsOneWidget);
-    expect(find.text('outTimeFieldTest'), findsOneWidget);
+    expect(find.text('destFieldTest'), findsOneWidget);
 
-    await tester.tap(find.byKey(new Key('submitKey')), warnIfMissed: false);
+    await tester.tap(find.byKey(new Key('addProfileKey')));
+
   });
 }

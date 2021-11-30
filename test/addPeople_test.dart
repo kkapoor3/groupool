@@ -18,6 +18,5 @@ void main() {
 
     await tester.tap(find.byKey(new Key('addUser')), warnIfMissed: false);
 
-    await tester.pumpAndSettle();
   });
 }

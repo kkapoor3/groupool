@@ -57,11 +57,13 @@ class _Search2State extends State<Search2> {
   }
 
   List<String> users = [Constants.myName];
+  List usersCount = [0];
 
   addToList(String userName) {
     setState(() {
       if (!users.contains(userName)) {
         users.add(userName);
+        usersCount.add(0);
       }
     });
   }
@@ -80,13 +82,14 @@ class _Search2State extends State<Search2> {
 
       Map<String, dynamic> projectRoom = {
         "users": users,
+        "usersCount": usersCount,
         "projectId": projectId,
         "admin": Constants.myName,
       };
 
       databaseMethods.addChatRoom2(projectRoom, projectId);
 
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => Team(
@@ -160,6 +163,7 @@ class _Search2State extends State<Search2> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Create Pool'),
+        backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(
             key: new Key('createProjectKey'),
@@ -201,6 +205,7 @@ class _Search2State extends State<Search2> {
                           ),
                         ),
                         GestureDetector(
+                          key: new Key('initSearchKey'),
                           onTap: () {
                             initiateSearch();
                             addUser();

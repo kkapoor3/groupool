@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:chatapp/views/projectRooms.dart';
+import 'package:chatapp/views/Commutes.dart';
 
 void main() {
   Widget createWidgetForTesting({Widget child}) {
@@ -10,7 +10,7 @@ void main() {
     );
   }
 
-  testWidgets('project rooms test', (WidgetTester tester) async {
-    await tester.pumpWidget(createWidgetForTesting(child: new ProjectRooms()));
+  testWidgets('commutes test', (WidgetTester tester) async {
+    await tester.pumpWidget(createWidgetForTesting(child: new Commutes()));
   });
 }

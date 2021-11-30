@@ -3,9 +3,10 @@ import 'package:chatapp/helper/helperfunctions.dart';
 import 'package:chatapp/views/chatrooms.dart';
 import 'package:flutter/material.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
@@ -35,8 +36,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FlutterChat',
-      //hello sudheer
+      title: 'GrouPool',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Color(0xff3e2723),

@@ -3,12 +3,17 @@ import 'package:chatapp/helper/constants.dart';
 import 'package:chatapp/helper/helperfunctions.dart';
 import 'package:chatapp/services/auth.dart';
 import 'package:chatapp/services/database.dart';
+import 'package:chatapp/views/Commutes.dart';
+import 'package:chatapp/views/tripHistory.dart';
+import 'package:chatapp/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/views/team.dart';
 import 'package:chatapp/helper/theme.dart';
 import 'package:chatapp/views/search2.dart';
 
 class ProjectRooms extends StatefulWidget {
+
+
   @override
   _ProjectRoomsState createState() => _ProjectRoomsState();
 }
@@ -16,25 +21,26 @@ class ProjectRooms extends StatefulWidget {
 class _ProjectRoomsState extends State<ProjectRooms> {
   Stream projectRooms;
 
-  Widget projectRoomList() {
+  Widget projectRoomList(){
     return StreamBuilder(
         stream: projectRooms,
         builder: (context, snapshot) {
           return snapshot.hasData
               ? ListView.builder(
-                  reverse: true,
-                  itemCount: snapshot.data.documents.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return ProjectTile(
-                      projectId:
-                          snapshot.data.documents[index].data["projectId"],
-                    );
-                  })
-              : Container();
-        });
-  }
+              reverse: true,
+              itemCount: snapshot.data.documents.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return ProjectTile(
 
+                  projectId: snapshot.data.documents[index].data["projectId"],
+                );
+              })
+              : Container();
+        }
+    );
+
+  }
   @override
   void initState() {
     getUserInfogetChats();
@@ -52,32 +58,55 @@ class _ProjectRoomsState extends State<ProjectRooms> {
       });
     });
   }
+  addTripRoom(){
+    Map<String, dynamic> tripRoom = {
+      "tripId" : Constants.myName,
+    };
+    DatabaseMethods().addTripRoom(tripRoom, Constants.myName);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           title: Text("Chat Rooms"),
+          backgroundColor:Colors.brown[900],
           elevation: 0.0,
           centerTitle: false,
           actions: [
             GestureDetector(
-              onTap: () {
-                AuthService().signOut();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Authenticate()));
+              onTap: (){
+                addTripRoom();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => tripHistory()));
               },
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Icon(Icons.exit_to_app)),
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical:15),
+                  child: Text("My trips",style: simpleTextStyle(),),
+                ),
+              ),
             ),
+
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Commutes()));
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Icon(Icons.commute),
+              ),
+            ),
+
           ]),
       body: Container(
         child: projectRoomList(),
+
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        key: new Key('search2Key'),
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Search2()));
@@ -104,8 +133,8 @@ class _ProjectTileState extends State<ProjectTile> {
             context,
             MaterialPageRoute(
                 builder: (context) => Team(
-                      projectId: widget.projectId,
-                    )));
+                  projectId: widget.projectId,
+                )));
       },
       child: Container(
         color: Colors.black26,
@@ -116,7 +145,8 @@ class _ProjectTileState extends State<ProjectTile> {
               height: 30,
               width: 30,
               decoration: BoxDecoration(
-                  color: Colors.brown, borderRadius: BorderRadius.circular(30)),
+                  color: Colors.brown,
+                  borderRadius: BorderRadius.circular(30)),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(2.0, 2.0, 4.0, 3.0),
                 child: Text(widget.projectId.substring(8, 10),
