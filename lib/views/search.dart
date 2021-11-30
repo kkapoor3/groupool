@@ -64,7 +64,7 @@ class _SearchState extends State<Search> {
 
     databaseMethods.addChatRoom(chatRoom, chatRoomId);
 
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => Chat(
@@ -129,6 +129,7 @@ class _SearchState extends State<Search> {
       appBar: AppBar(
         title: Text("Connect"),
       ),
+      backgroundColor: Colors.brown[900],
       body: isLoading
           ? Container(
               child: Center(

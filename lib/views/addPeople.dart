@@ -13,7 +13,8 @@ import 'package:flutter/rendering.dart';
 class AddPeople extends StatefulWidget {
   final String projectId;
   final List<dynamic> people;
-  AddPeople({this.projectId, this.people});
+  final List<dynamic> usersCount;
+  AddPeople({this.projectId, this.people, this.usersCount});
   @override
   _AddPeopleState createState() => _AddPeopleState();
 }
@@ -63,6 +64,7 @@ class _AddPeopleState extends State<AddPeople> {
     setState(() {
       if (!widget.people.contains(userName)) {
         widget.people.add(userName);
+        widget.usersCount.add(0);
       }
     });
   }
@@ -79,8 +81,12 @@ class _AddPeopleState extends State<AddPeople> {
           .collection("projectRoom")
           .document(widget.projectId)
           .updateData({"users": widget.people});
+      await Firestore.instance
+          .collection("projectRoom")
+          .document(widget.projectId)
+          .updateData({"usersCount": widget.usersCount});
 
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => Team(
@@ -111,7 +117,6 @@ class _AddPeopleState extends State<AddPeople> {
           ),
           Spacer(),
           GestureDetector(
-            key: new Key('addToList'),
             onTap: () {
               addToList(userName);
               setState(() {
@@ -121,7 +126,7 @@ class _AddPeopleState extends State<AddPeople> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                  color: isAdded ? Colors.blue : Colors.orange,
+                  color: isAdded ? Colors.brown : Colors.orange,
                   borderRadius: BorderRadius.circular(24)),
               child: isAdded
                   ? Text(
@@ -155,8 +160,10 @@ class _AddPeopleState extends State<AddPeople> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add People'),
+        backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(
+            key: new Key('updateList'),
             onTap: () {
               updateList();
             },

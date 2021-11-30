@@ -13,8 +13,8 @@ void main() {
   testWidgets('team test', (WidgetTester tester) async {
     await tester.pumpWidget(createWidgetForTesting(child: new Team()));
 
-    expect(find.text('Meet'), findsOneWidget);
+    expect(find.text('Pool'), findsOneWidget);
 
-    await tester.tap(find.byKey(new Key('addMessageKey')), warnIfMissed: false);
+    await tester.tap(find.byKey(new Key('addMessageKey')));
   });
 }
