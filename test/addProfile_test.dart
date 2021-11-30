@@ -40,6 +40,6 @@ void main() {
     expect(find.text('inTimeFieldTest'), findsOneWidget);
     expect(find.text('outTimeFieldTest'), findsOneWidget);
 
-    await tester.tap(find.byKey(new Key('submitKey')));
+    await tester.tap(find.byKey(new Key('submitKey')), warnIfMissed: false);
   });
 }
