@@ -3,7 +3,6 @@ import 'package:chatapp/helper/helperfunctions.dart';
 import 'package:chatapp/views/chatrooms.dart';
 import 'package:flutter/material.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

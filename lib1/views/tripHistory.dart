@@ -30,21 +30,21 @@ class _tripHistoryState extends State<tripHistory> {
                 child: Column(
                   children: [
                     Text(snapshot.data.documents[index].data["nameOfTheTrip"],
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold
-                      ),),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),),
                     Text(snapshot.data.documents[index].data["Source"]+" to "+snapshot.data.documents[index].data["Destination"],
-                        style:TextStyle(fontWeight:FontWeight.bold)),
+                    style:TextStyle(fontWeight:FontWeight.bold)),
                     Text(snapshot.data.documents[index].data["from"]+" to "+snapshot.data.documents[index].data["untill"],
-                      style: TextStyle(fontSize: 20),),
+                    style: TextStyle(fontSize: 20),),
 
                   ],
                 ),
               );
             })
             : Container(
-            child:Text("No trips")
+          child:Text("No trips")
         );
       },
     );
@@ -71,7 +71,7 @@ class _tripHistoryState extends State<tripHistory> {
     return Scaffold(
       appBar: AppBar(
         title: Text('My Trips'),
-        backgroundColor: Colors.brown[900],
+          backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(
             onTap: (){

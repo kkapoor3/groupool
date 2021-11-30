@@ -17,7 +17,6 @@ void main() {
     expect(find.text("Add People"), findsOneWidget);
 
     await tester.tap(find.byKey(new Key('addUser')));
-
-    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(new Key('updateList')));
   });
 }

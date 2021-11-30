@@ -15,12 +15,13 @@ void main() {
 
     expect(find.text('Chats'), findsOneWidget);
 
-    await tester.tap(find.byKey(new Key('showProfileKey')));
+    await tester.tap(find.byKey(new Key('showProfileKey')),
+        warnIfMissed: false);
 
-    await tester.tap(find.byKey(new Key('projectRoomsKey')));
+    await tester.tap(find.byKey(new Key('projectRoomsKey')),
+        warnIfMissed: false);
 
-    await tester.tap(find.byKey(new Key('authenticateKey')));
-
-    await tester.tap(find.byKey(new Key('searchKey')));
+    await tester.tap(find.byKey(new Key('authenticateKey')),
+        warnIfMissed: false);
   });
 }

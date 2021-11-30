@@ -1,21 +1,21 @@
-
 import 'package:chatapp/helper/constants.dart';
 import 'package:chatapp/services/database.dart';
-import 'package:chatapp/views/allTrips.dart';
+import 'package:chatapp/views/chat.dart';
 import 'package:chatapp/views/makeATrip.dart';
+import 'package:chatapp/views/search.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
+class allTrips extends StatefulWidget {
 
-class tripHistory extends StatefulWidget {
   @override
 
-  _tripHistoryState createState() => _tripHistoryState();
+  _allTripsState createState() => _allTripsState();
 }
 
-class _tripHistoryState extends State<tripHistory> {
+class _allTripsState extends State<allTrips> {
   Stream<QuerySnapshot> trips;
   Widget ListOfTrips() {
     return StreamBuilder(
@@ -27,8 +27,14 @@ class _tripHistoryState extends State<tripHistory> {
             itemBuilder: (context, index) {
               //return Text(snapshot.data.documents[index].data["nameOfTheTrip"]);
               return Card(
+                color: Colors.brown,
                 child: Column(
                   children: [
+                    Text(snapshot.data.documents[index].data["user"],
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      ),),
                     Text(snapshot.data.documents[index].data["nameOfTheTrip"],
                       style: TextStyle(
                           fontSize: 20,
@@ -38,7 +44,15 @@ class _tripHistoryState extends State<tripHistory> {
                         style:TextStyle(fontWeight:FontWeight.bold)),
                     Text(snapshot.data.documents[index].data["from"]+" to "+snapshot.data.documents[index].data["untill"],
                       style: TextStyle(fontSize: 20),),
+                    snapshot.data.documents[index].data["user"]!=Constants.myName?FlatButton(
+                      color:Colors.brown[900],
+                      onPressed: () {
+                        // Perform some action
+                        sendMessage(snapshot.data.documents[index].data["user"]);
+                      },
+                      child: const Text('Message',style: TextStyle(color:Colors.grey,fontWeight: FontWeight.bold),),
 
+                    ):Container(),
                   ],
                 ),
               );
@@ -56,9 +70,29 @@ class _tripHistoryState extends State<tripHistory> {
       return "$a\_$b";
     }
   }
+  sendMessage(String userName){
+
+    List<String> users = [Constants.myName,userName];
+
+    String chatRoomId = getChatRoomId(Constants.myName,userName);
+
+    Map<String, dynamic> chatRoom = {
+      "users": users,
+      "chatRoomId" : chatRoomId,
+    };
+
+    DatabaseMethods().addChatRoom(chatRoom, chatRoomId);
+
+    Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) => Chat(
+          chatRoomId: chatRoomId,
+        )
+    ));
+
+  }
   @override
   void initState() {
-    DatabaseMethods().getTrips(Constants.myName).then((val) {
+    DatabaseMethods().getAllTrips().then((val) {
       setState(() {
         trips = val;
         print(trips);
@@ -70,30 +104,10 @@ class _tripHistoryState extends State<tripHistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Trips'),
-        backgroundColor: Colors.brown[900],
-        actions: [
-          GestureDetector(
-            onTap: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => allTrips()));
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Icon(Icons.airport_shuttle),
-            ),
-          ),
-
-        ],
+        title: Text('All Trips'),
+          backgroundColor: Colors.brown[900],
       ),
-      body: ListOfTrips(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => makeATrip()));
-        },
-      ),
+    body: ListOfTrips(),
     );
   }
 }

@@ -48,6 +48,8 @@ class SignupTestingState extends State<SignupTesting> {
       expect(find.text('Sign Up with Google'), findsOneWidget);
 
       expect(find.text('SignIn now'), findsOneWidget);
+
+      await tester.tap(find.byKey(new Key('signupKey')));
     });
   }
 

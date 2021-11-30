@@ -89,19 +89,6 @@ class _ChatRoomState extends State<ChatRoom> {
               child: Icon(Icons.perm_identity),
             ),
           ),
-
-          // GestureDetector(
-          //   onTap: (){
-          //     addTripRoom();
-          //     Navigator.push(context,
-          //         MaterialPageRoute(builder: (context) => tripHistory()));
-          //   },
-          //   child: Container(
-          //     padding: EdgeInsets.symmetric(horizontal: 10),
-          //     child: Icon(Icons.local_taxi_sharp),
-          //   ),
-          // ),
-
           GestureDetector(
             key: new Key('projectRoomsKey'),
             onTap: () {
@@ -131,6 +118,7 @@ class _ChatRoomState extends State<ChatRoom> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.search),
+        key: new Key('searchKey'),
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Search()));

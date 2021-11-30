@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 
 import 'package:chatapp/helper/constants.dart';
@@ -9,6 +10,8 @@ import 'package:f_datetimerangepicker/f_datetimerangepicker.dart';
 import 'package:chatapp/widget/widget.dart';
 
 class makeATrip extends StatefulWidget {
+
+
   @override
   _makeATripState createState() => _makeATripState();
 }
@@ -34,13 +37,11 @@ class _makeATripState extends State<makeATrip> {
         " " +
         date.year.toString();
   }
-
   addTrip() {
-    if (nameOfTheTrip.text.isNotEmpty &&
-        Source.text.isNotEmpty &&
+    if (nameOfTheTrip.text.isNotEmpty && Source.text.isNotEmpty &&
         Destination.text.isNotEmpty) {
       Map<String, dynamic> tripData = {
-        "user": Constants.myName,
+        "user":Constants.myName,
         "nameOfTheTrip": nameOfTheTrip.text,
         "Source": Source.text,
         "Destination": Destination.text,
@@ -57,15 +58,15 @@ class _makeATripState extends State<makeATrip> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Select the dates '),
-        backgroundColor: Colors.brown[900],
+          backgroundColor: Colors.brown[900],
       ),
-      body: Center(
+      body:Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+
           TextFormField(
-            key: new Key('tripNameKey'),
             style: simpleTextStyle(),
             controller: nameOfTheTrip,
-            validator: (val) {
+            validator: (val){
               return val.isEmpty ? "Enter Name of The Trip" : null;
             },
             decoration: textFieldInputDecoration("Name of the Trip"),
@@ -74,10 +75,9 @@ class _makeATripState extends State<makeATrip> {
             height: 26,
           ),
           TextFormField(
-            key: new Key('sourceKey'),
             style: simpleTextStyle(),
             controller: Source,
-            validator: (val) {
+            validator: (val){
               return val.isEmpty ? "Enter the Source" : null;
             },
             decoration: textFieldInputDecoration("Source Location"),
@@ -86,10 +86,9 @@ class _makeATripState extends State<makeATrip> {
             height: 16,
           ),
           TextFormField(
-            key: new Key('destKey'),
             style: simpleTextStyle(),
             controller: Destination,
-            validator: (val) {
+            validator: (val){
               return val.isEmpty ? "Enter the Destination" : null;
             },
             decoration: textFieldInputDecoration("Destination Location"),
@@ -120,12 +119,14 @@ class _makeATripState extends State<makeATrip> {
                     print(start.toString());
                     print(end.toString());
                     setState(() {
-                      from = dateFormatter(start);
-                      untill = dateFormatter(end);
+                      from=dateFormatter(start);
+                      untill=dateFormatter(end);
                     });
+
                   }).showPicker(context);
             },
           ),
+
           Text(from ?? "Pick Start Date of your trip",
               textAlign: TextAlign.start,
               style: TextStyle(
@@ -146,7 +147,6 @@ class _makeATripState extends State<makeATrip> {
         ]),
       ),
       floatingActionButton: FloatingActionButton(
-        key: new Key('addTripKey'),
         child: Icon(Icons.add),
         onPressed: () {
           addTrip();

@@ -16,5 +16,7 @@ void main() {
     expect(find.text('Create Pool'), findsOneWidget);
 
     await tester.tap(find.byKey(new Key('createProjectKey')));
+
+    await tester.tap(find.byKey(new Key('initSearchKey')));
   });
 }
