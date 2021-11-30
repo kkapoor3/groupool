@@ -23,5 +23,6 @@ void main() {
 
     await tester.tap(find.byKey(new Key('authenticateKey')),
         warnIfMissed: false);
+
   });
 }

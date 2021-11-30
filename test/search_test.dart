@@ -19,6 +19,6 @@ void main() {
 
     expect(find.text('searchFieldTest'), findsOneWidget);
 
-    await tester.tap(find.byKey(new Key('initSearchKey')));
+    await tester.tap(find.byKey(new Key('initSearchKey')), warnIfMissed: false);
   });
 }

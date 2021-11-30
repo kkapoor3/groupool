@@ -41,9 +41,10 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primaryColor: Color(0xff3e2723),
         scaffoldBackgroundColor: Color(0xff1F1F1F),
-        accentColor: Color(0xff4e342e),
         fontFamily: "OverpassRegular",
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        colorScheme:
+            ColorScheme.fromSwatch().copyWith(secondary: Color(0xff4e342e)),
       ),
       home: userIsLoggedIn != null
           ? userIsLoggedIn

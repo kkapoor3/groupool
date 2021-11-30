@@ -32,5 +32,6 @@ void main() {
     expect(find.text('destFieldTest'), findsOneWidget);
 
     await tester.tap(find.byKey(new Key('addProfileKey')));
+
   });
 }

@@ -36,7 +36,8 @@ class SigninTestingState extends State<SigninTesting> {
 
       expect(find.text('passwordFieldTest'), findsOneWidget);
 
-      await tester.tap(find.byKey(new Key('forgotPasswordKey')));
+      await tester.tap(find.byKey(new Key('forgotPasswordKey')),
+          warnIfMissed: false);
 
       await tester.tap(find.byKey(new Key('signinKey')), warnIfMissed: false);
 
