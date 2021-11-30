@@ -70,7 +70,7 @@ class _tripHistoryState extends State<tripHistory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Trip History'),
+        title: Text('My Trips'),
           backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(

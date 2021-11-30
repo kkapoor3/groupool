@@ -53,7 +53,7 @@ class _SignUpState extends State<SignUp> {
               HelperFunctions.saveUserEmailSharedPreference(emailEditingController.text);
 
               Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context) => AddProfile()
+                  builder: (context) => AddProfile(user: usernameEditingController.text)
               ));
             }
       });
@@ -63,8 +63,8 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:Center(child: Text('Register for GrouPool'))),
-      backgroundColor: Colors.brown[900],
+      appBar: AppBar(title:Center(child: Text('Register for GrouPool')),backgroundColor: Colors.brown[900],),
+
       body: isLoading ? Container(child: Center(child: CircularProgressIndicator(),),) :  Container(
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(

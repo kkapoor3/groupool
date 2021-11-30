@@ -61,7 +61,7 @@ class _ShowProfileState extends State<ShowProfile> {
           actions: [],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(100.0),
+          padding: const EdgeInsets.all(10.0),
           child: Container(
             child: Center(
               child:Column(

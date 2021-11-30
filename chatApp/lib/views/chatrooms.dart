@@ -62,12 +62,12 @@ class _ChatRoomState extends State<ChatRoom> {
     });
   }
 
-  addTripRoom(){
-    Map<String, dynamic> tripRoom = {
-      "tripId" : Constants.myName,
-    };
-    DatabaseMethods().addTripRoom(tripRoom, Constants.myName);
-  }
+  // addTripRoom(){
+  //   Map<String, dynamic> tripRoom = {
+  //     "tripId" : Constants.myName,
+  //   };
+  //   DatabaseMethods().addTripRoom(tripRoom, Constants.myName);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -89,17 +89,17 @@ class _ChatRoomState extends State<ChatRoom> {
             ),
           ),
 
-          GestureDetector(
-            onTap: (){
-              addTripRoom();
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => tripHistory()));
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Icon(Icons.local_taxi_sharp),
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: (){
+          //     addTripRoom();
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => tripHistory()));
+          //   },
+          //   child: Container(
+          //     padding: EdgeInsets.symmetric(horizontal: 10),
+          //     child: Icon(Icons.local_taxi_sharp),
+          //   ),
+          // ),
 
           GestureDetector(
             onTap: (){

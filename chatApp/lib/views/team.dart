@@ -72,11 +72,12 @@ class _TeamState extends State<Team> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:Text('Meet'),
+        title:Text('Pool'),
         backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(

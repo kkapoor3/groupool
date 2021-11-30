@@ -52,6 +52,7 @@ class _makeATripState extends State<makeATrip> {
       DatabaseMethods().addtoAllTrips(tripData);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +98,7 @@ class _makeATripState extends State<makeATrip> {
           ),
           MaterialButton(
             child: Text("Select the course of your trip"),
-            color: Colors.blue,
+            color: Colors.brown[800],
             onPressed: () {
               DateTimeRangePicker(
                   startText: "From",

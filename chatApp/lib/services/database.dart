@@ -99,6 +99,13 @@ class DatabaseMethods {
         .snapshots();
   }
 
+  getAllProfiles() async{
+    return Firestore.instance
+        .collection("profile")
+        .orderBy('leavingTime')
+        .snapshots();
+  }
+
 
 
   Future<void> addMessage(String chatRoomId, chatMessageData){
