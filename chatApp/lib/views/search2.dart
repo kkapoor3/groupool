@@ -25,6 +25,7 @@ class _Search2State extends State<Search2> {
   bool haveUserSearched = false;
   bool isAdded=false;
 
+
   initiateSearch() async {
     if(searchEditingController.text.isNotEmpty){
       setState(() {
@@ -55,11 +56,16 @@ class _Search2State extends State<Search2> {
         }) : Container();
   }
   List<String> users=[Constants.myName];
+   List usersCount = [
+    0
+  ];
+
 
   addToList(String userName){
     setState(() {
       if(!users.contains(userName)){
         users.add(userName);
+        usersCount.add(0);
       }
     });
   }
@@ -79,6 +85,7 @@ class _Search2State extends State<Search2> {
 
       Map<String, dynamic> projectRoom = {
         "users": users,
+        "usersCount":usersCount,
         "projectId": projectId,
         "admin":Constants.myName,
       };

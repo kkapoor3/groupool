@@ -13,7 +13,8 @@ import 'package:flutter/rendering.dart';
 class AddPeople extends StatefulWidget {
   final String projectId;
   final List<dynamic> people;
-  AddPeople({this.projectId, this.people});
+  final List<dynamic> usersCount;
+  AddPeople({this.projectId, this.people,this.usersCount});
   @override
   _AddPeopleState createState() => _AddPeopleState();
 }
@@ -61,6 +62,7 @@ class _AddPeopleState extends State<AddPeople> {
     setState(() {
       if(!widget.people.contains(userName)){
         widget.people.add(userName);
+        widget.usersCount.add(0);
       }
     });
   }
@@ -77,6 +79,9 @@ class _AddPeopleState extends State<AddPeople> {
 
       await Firestore.instance.collection("projectRoom").document(widget.projectId).updateData({
         "users": widget.people}
+      );
+      await Firestore.instance.collection("projectRoom").document(widget.projectId).updateData({
+        "usersCount": widget.usersCount}
       );
 
       Navigator.push(context, MaterialPageRoute(

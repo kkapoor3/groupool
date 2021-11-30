@@ -127,6 +127,16 @@ class DatabaseMethods {
       print(e.toString());
     });
   }
+
+  Future<void> updateCount(String poolId,usersCount){
+
+    Firestore.instance.collection("projectRoom")
+        .document(poolId)
+        .updateData({"usersCount":usersCount}).catchError((e){
+      print(e.toString());
+    });
+  }
+
   Future<void> addtoAllTrips(tripData) async {
     Firestore.instance
         .collection("AllTrips")
@@ -135,6 +145,8 @@ class DatabaseMethods {
       print(e.toString());
     });
   }
+  
+  
 
   getUserChats(String itIsMyName) async {
     return await Firestore.instance

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:chatapp/helper/constants.dart';
 import 'package:chatapp/services/database.dart';
 import 'package:chatapp/views/addPeople.dart';
+import 'package:chatapp/views/team.dart';
+import 'package:chatapp/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,9 @@ class _PeopleState extends State<People> {
   String admin;
   bool isAdmin = false;
   List<dynamic> pplList;
+  List<dynamic> counts;
+  int counter=0;
+  int prev;
   getDoc() async {
     await DatabaseMethods().getUsers(widget.projectId).then((snapshot) {
       setState(() {
@@ -28,8 +33,17 @@ class _PeopleState extends State<People> {
         admin = doc.documents[0].data["admin"];
         isAdmin = (Constants.myName == admin);
         print(isAdmin);
+        counts=doc.documents[0].data['usersCount'];
       });
     });
+    print("Hello");
+  }
+
+  void increaseCount(index){
+    setState(() {
+      counts[index]+=1;
+    });
+    print(counts);
   }
 
   @override
@@ -37,6 +51,28 @@ class _PeopleState extends State<People> {
     // TODO: implement initState
     super.initState();
     getDoc();
+  }
+
+  Widget counterInc(){
+    return Container(
+      child:Column(
+        children: [
+          Text(counter.toString(),style: simpleTextStyle(),),
+          ElevatedButton.icon(
+              onPressed: () {
+                // Respond to button press
+                setState(() {
+                  counter=counter+1;
+                });
+              },
+              icon: Icon(Icons.add, size: 18),
+              label: Text("add"),
+              style:ElevatedButton.styleFrom(primary: Colors.brown[800])
+          ),
+
+        ],
+      )
+    );
   }
 
   Widget userList() {
@@ -53,6 +89,7 @@ class _PeopleState extends State<People> {
           ));
   }
 
+
   Widget userTile(List<dynamic> people) {
     print(people.runtimeType);
     setState(() {
@@ -65,58 +102,92 @@ class _PeopleState extends State<People> {
         padding: const EdgeInsets.all(8),
         itemCount: people.length,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 50,
-            child: Card(
-              color: Colors.black12,
-              child: InkWell(
-                onTap: () {
-                  print('Card tapped.');
-                },
-                child: Row(
-                  children: [
-                    Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                          color: Colors.brown,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Text(people[index].substring(0, 1),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontFamily: 'OverpassRegular',
-                              fontWeight: FontWeight.w300)),
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Row(
+          return Column(
+            children: [
+              Container(
+                height: 50,
+                child: Card(
+                  color: Colors.black12,
+                  child: InkWell(
+                    onTap: () {
+                      print('Card tapped.');
+                    },
+                    child: Row(
                       children: [
-                        (Constants.myName==people[index])?Text("You",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontFamily: 'OverpassRegular',
-                                fontWeight: FontWeight.w300)):
-                        Text(people[index],
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontFamily: 'OverpassRegular',
-                                fontWeight: FontWeight.w300)),
-                        SizedBox(width: 10.0,),
-                        (admin==people[index])? Icon(Icons.person,
-                        color: Colors.white,):Text(''),
+                        Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                              color: Colors.brown,
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Text(people[index].substring(0, 1),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: 'OverpassRegular',
+                                  fontWeight: FontWeight.w300)),
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Row(
+                          children: [
+                            (Constants.myName==people[index])?Text("You",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'OverpassRegular',
+                                    fontWeight: FontWeight.w300)):
+                            Text(people[index],
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'OverpassRegular',
+                                    fontWeight: FontWeight.w300)),
+                            SizedBox(width: 10.0,),
+                            (admin==people[index])? Icon(Icons.person,
+                              color: Colors.white,):Text(''),
+
+                            Text(counts[index].toString(),
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'OverpassRegular',
+                                    fontWeight: FontWeight.w300)),
+                            SizedBox(width: 20.0,),
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                // Respond to button press
+                                increaseCount(index);
+                              },
+                              icon: Icon(Icons.add, size: 10),
+                              label: Text("add"),
+                              style:ElevatedButton.styleFrom(primary: Colors.brown[800])
+                            ),
+                            SizedBox(width: 10.0,),
+                            ElevatedButton.icon(
+                                onPressed: () {
+                                  // Respond to button press
+                                  increaseCount(index);
+                                },
+                                icon: Icon(Icons.remove, size: 10),
+                                label: Text("undo"),
+                                style:ElevatedButton.styleFrom(primary: Colors.brown[800])
+                            ),
+
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+              //counterInc(),
+            ],
           );
         });
   }
@@ -136,7 +207,7 @@ class _PeopleState extends State<People> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => AddPeople(
-                                projectId: widget.projectId, people: pplList)));
+                                projectId: widget.projectId, people: pplList,usersCount:counts)));
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -147,6 +218,17 @@ class _PeopleState extends State<People> {
         ],
       ),
       body: userList(),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.update),
+          onPressed: () async {
+            await Firestore.instance.collection("projectRoom").document(widget.projectId).updateData({
+              "usersCount": counts}
+            );
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => Team(projectId:widget.projectId)));
+
+          },
+        )
     );
   }
 }
