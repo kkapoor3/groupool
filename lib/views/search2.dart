@@ -16,22 +16,23 @@ class Search2 extends StatefulWidget {
 }
 
 class _Search2State extends State<Search2> {
+
   DatabaseMethods databaseMethods = new DatabaseMethods();
   TextEditingController searchEditingController = new TextEditingController();
   QuerySnapshot searchResultSnapshot;
 
   bool isLoading = false;
   bool haveUserSearched = false;
-  bool isAdded = false;
+  bool isAdded=false;
+
 
   initiateSearch() async {
-    if (searchEditingController.text.isNotEmpty) {
+    if(searchEditingController.text.isNotEmpty){
       setState(() {
         isLoading = true;
       });
-      await databaseMethods
-          .searchByName(searchEditingController.text)
-          .then((snapshot) {
+      await databaseMethods.searchByName(searchEditingController.text)
+          .then((snapshot){
         searchResultSnapshot = snapshot;
         print("$searchResultSnapshot");
         setState(() {
@@ -42,60 +43,67 @@ class _Search2State extends State<Search2> {
     }
   }
 
-  Widget userList() {
-    return haveUserSearched
-        ? ListView.builder(
-            shrinkWrap: true,
-            itemCount: searchResultSnapshot.documents.length,
-            itemBuilder: (context, index) {
-              return userTile(
-                searchResultSnapshot.documents[index].data["userName"],
-                searchResultSnapshot.documents[index].data["userEmail"],
-              );
-            })
-        : Container();
+  Widget userList(){
+
+    return haveUserSearched ? ListView.builder(
+        shrinkWrap: true,
+        itemCount: searchResultSnapshot.documents.length,
+        itemBuilder: (context, index){
+          return userTile(
+            searchResultSnapshot.documents[index].data["userName"],
+            searchResultSnapshot.documents[index].data["userEmail"],
+          );
+        }) : Container();
   }
+  List<String> users=[Constants.myName];
+   List usersCount = [
+    0
+  ];
 
-  List<String> users = [Constants.myName];
 
-  addToList(String userName) {
+  addToList(String userName){
     setState(() {
-      if (!users.contains(userName)) {
+      if(!users.contains(userName)){
         users.add(userName);
+        usersCount.add(0);
       }
     });
   }
 
-  addUser() {
+  addUser(){
     setState(() {
-      isAdded = false;
+      isAdded=false;
     });
   }
 
-  createProject() {
-    if (users.length != 1) {
+
+  createProject(){
+    if(users.length!=1) {
       String projectId = getProjectId();
 
       //List<String> users = [Constants.myName,userName];
 
       Map<String, dynamic> projectRoom = {
         "users": users,
+        "usersCount":usersCount,
         "projectId": projectId,
-        "admin": Constants.myName,
+        "admin":Constants.myName,
       };
 
       databaseMethods.addChatRoom2(projectRoom, projectId);
 
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Team(
-                    projectId: projectId,
-                  )));
+
+      Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) =>
+              Team(
+                projectId: projectId,
+              )
+      ));
     }
+
   }
 
-  Widget userTile(String userName, String userEmail) {
+  Widget userTile(String userName,String userEmail){
     //addUser();
 
     return Container(
@@ -107,63 +115,76 @@ class _Search2State extends State<Search2> {
             children: [
               Text(
                 userName,
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16
+                ),
               ),
               Text(
                 userEmail,
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16
+                ),
               )
             ],
           ),
           Spacer(),
           GestureDetector(
-            onTap: () {
+            onTap: (){
               addToList(userName);
               setState(() {
-                isAdded = true;
+                isAdded=true;
               });
             },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 12,vertical: 8),
               decoration: BoxDecoration(
-                  color: isAdded ? Colors.brown : Colors.orange,
-                  borderRadius: BorderRadius.circular(24)),
-              child: isAdded
-                  ? Text(
-                      "Added",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    )
-                  : Text(
-                      "Add",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
+                  color: isAdded ? Colors.brown : Colors.orange ,
+                  borderRadius: BorderRadius.circular(24)
+              ),
+              child: isAdded ? Text("Added",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16
+                ),):Text("Add",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16
+                ),),
             ),
           ),
+
         ],
       ),
     );
   }
-
-  String getProjectId() {
+  String getProjectId(){
     var random = Random.secure();
     var value = random.nextInt(1000000);
-    return "Pool " + value.toString();
+    return "Pool "+value.toString();
+
   }
+
+
+
 
   @override
   void initState() {
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Create Pool'),
+        backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(
-            key: new Key('createProjectKey'),
-            onTap: () {
+            onTap: (){
               createProject();
             },
             child: Container(
@@ -171,66 +192,69 @@ class _Search2State extends State<Search2> {
               child: Icon(Icons.add),
             ),
           ),
+
         ],
       ),
-      body: isLoading
-          ? Container(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            )
-          : Container(
-              child: Column(
+      body: isLoading ? Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ) :  Container(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              color: Color(0x54FFFFFF),
+              child: Row(
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                    color: Color(0x54FFFFFF),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: searchEditingController,
-                            style: simpleTextStyle(),
-                            decoration: InputDecoration(
-                                hintText: "Add User ...",
-                                hintStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                                border: InputBorder.none),
+                  Expanded(
+                    child: TextField(
+
+                      controller: searchEditingController,
+                      style: simpleTextStyle(),
+                      decoration: InputDecoration(
+                          hintText: "Add User ...",
+                          hintStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            initiateSearch();
-                            addUser();
-                          },
-                          child: Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      colors: [
-                                        const Color(0x36FFFFFF),
-                                        const Color(0x0FFFFFFF)
-                                      ],
-                                      begin: FractionalOffset.topLeft,
-                                      end: FractionalOffset.bottomRight),
-                                  borderRadius: BorderRadius.circular(40)),
-                              padding: EdgeInsets.all(12),
-                              child: Image.asset(
-                                "assets/images/search_white.png",
-                                height: 25,
-                                width: 25,
-                              )),
-                        ),
-                      ],
+                          border: InputBorder.none
+                      ),
                     ),
                   ),
-                  userList()
+                  GestureDetector(
+                    onTap: (){
+                      initiateSearch();
+                      addUser();
+                    },
+                    child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [
+                                  const Color(0x36FFFFFF),
+                                  const Color(0x0FFFFFFF)
+                                ],
+                                begin: FractionalOffset.topLeft,
+                                end: FractionalOffset.bottomRight
+                            ),
+                            borderRadius: BorderRadius.circular(40)
+                        ),
+                        padding: EdgeInsets.all(12),
+                        child: Image.asset("assets/images/search_white.png",
+                          height: 25, width: 25,)),
+                  ),
+
                 ],
               ),
             ),
+            userList()
+          ],
+        ),
+      ),
     );
   }
 }
+
+

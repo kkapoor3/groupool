@@ -1,4 +1,4 @@
-  import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseMethods {
   Future<void> addUserInfo(userData) async {
@@ -52,6 +52,17 @@ class DatabaseMethods {
       print(e);
     });
   }
+
+  Future<bool> addTripRoom(tripData, tripId) {
+    Firestore.instance
+        .collection("Trips")
+        .document(tripId)
+        .setData(tripData)
+        .catchError((e) {
+      print(e);
+    });
+  }
+
   Future<bool> addChatRoom2(projectRoom, projectId) {
     Firestore.instance
         .collection("projectRoom")
@@ -72,6 +83,30 @@ class DatabaseMethods {
         .snapshots();
   }
 
+  getTrips(String tripId) async{
+    return Firestore.instance
+        .collection("Trips")
+        .document(tripId)
+        .collection("trips")
+        .orderBy('from')
+        .snapshots();
+  }
+
+  getAllTrips() async{
+    return Firestore.instance
+        .collection("AllTrips")
+        .orderBy('from')
+        .snapshots();
+  }
+
+  getAllProfiles() async{
+    return Firestore.instance
+        .collection("profile")
+        .orderBy('leavingTime')
+        .snapshots();
+  }
+
+
 
   Future<void> addMessage(String chatRoomId, chatMessageData){
 
@@ -79,9 +114,39 @@ class DatabaseMethods {
         .document(chatRoomId)
         .collection("chats")
         .add(chatMessageData).catchError((e){
-          print(e.toString());
+      print(e.toString());
     });
   }
+
+  Future<void> addTrip(String tripId, tripData){
+
+    Firestore.instance.collection("Trips")
+        .document(tripId)
+        .collection("trips")
+        .add(tripData).catchError((e){
+      print(e.toString());
+    });
+  }
+
+  Future<void> updateCount(String poolId,usersCount){
+
+    Firestore.instance.collection("projectRoom")
+        .document(poolId)
+        .updateData({"usersCount":usersCount}).catchError((e){
+      print(e.toString());
+    });
+  }
+
+  Future<void> addtoAllTrips(tripData) async {
+    Firestore.instance
+        .collection("AllTrips")
+        .add(tripData)
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
+  
+  
 
   getUserChats(String itIsMyName) async {
     return await Firestore.instance

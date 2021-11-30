@@ -75,7 +75,8 @@ class _TeamState extends State<Team> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Meet'),
+        title: Text('Pool'),
+        backgroundColor: Colors.brown[900],
         actions: [
           GestureDetector(
               onTap: () {

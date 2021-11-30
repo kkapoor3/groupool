@@ -3,6 +3,9 @@ import 'package:chatapp/helper/constants.dart';
 import 'package:chatapp/helper/helperfunctions.dart';
 import 'package:chatapp/services/auth.dart';
 import 'package:chatapp/services/database.dart';
+import 'package:chatapp/views/Commutes.dart';
+import 'package:chatapp/views/tripHistory.dart';
+import 'package:chatapp/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:chatapp/views/team.dart';
 import 'package:chatapp/helper/theme.dart';
@@ -53,23 +56,48 @@ class _ProjectRoomsState extends State<ProjectRooms> {
     });
   }
 
+  addTripRoom() {
+    Map<String, dynamic> tripRoom = {
+      "tripId": Constants.myName,
+    };
+    DatabaseMethods().addTripRoom(tripRoom, Constants.myName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
           title: Text("Chat Rooms"),
+          backgroundColor: Colors.brown[900],
           elevation: 0.0,
           centerTitle: false,
           actions: [
             GestureDetector(
               onTap: () {
-                AuthService().signOut();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Authenticate()));
+                addTripRoom();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => tripHistory()));
               },
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Icon(Icons.exit_to_app)),
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text(
+                    "My trips",
+                    style: simpleTextStyle(),
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Commutes()));
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Icon(Icons.commute),
+              ),
             ),
           ]),
       body: Container(
