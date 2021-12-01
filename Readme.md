@@ -7,7 +7,7 @@ Link to download our app: https://drive.google.com/file/d/1i78xRLBoJ4rKpIqBh5wn2
 **Getting Started**
 Note: Make sure your Flutter environment is setup.
 
-**Installation**
+**Setup and Installation**
 
 In the command terminal, run the following commands:
 
