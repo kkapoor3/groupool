@@ -69,7 +69,7 @@ class _ProjectRoomsState extends State<ProjectRooms> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Chat Rooms"),
+          title: Text("Pools"),
           backgroundColor:Colors.brown[900],
           elevation: 0.0,
           centerTitle: false,
@@ -81,10 +81,16 @@ class _ProjectRoomsState extends State<ProjectRooms> {
                     MaterialPageRoute(builder: (context) => tripHistory()));
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 0),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical:15),
-                  child: Text("My trips",style: simpleTextStyle(),),
+                  child: Row(
+                    children: [
+                      Icon(Icons.airport_shuttle),
+                      SizedBox(width: 10,),
+                      Text("My trips",style: simpleTextStyle(),),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -95,8 +101,15 @@ class _ProjectRoomsState extends State<ProjectRooms> {
                     MaterialPageRoute(builder: (context) => Commutes()));
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Icon(Icons.commute),
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                child: Row(
+                  children: [
+                    Icon(Icons.commute),
+                    SizedBox(width: 10,),
+
+                    Text("Commute"),
+                  ],
+                ),
               ),
             ),
 
