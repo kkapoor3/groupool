@@ -40,17 +40,17 @@ class _CommutesState extends State<Commutes> {
                       child: Row(
                         children: [
                           Icon(Icons.home),
-                          Text(snapshot.data.documents[index].data["home"]),
+                          Text(snapshot.data.documents[index].data["home"],style:TextStyle(color:Colors.grey,fontWeight: FontWeight.bold)),
                           SizedBox(
                             width: 10,
                           ),
                           Icon(Icons.work),
-                          Text(snapshot.data.documents[index].data["work"])
+                          Text(snapshot.data.documents[index].data["work"],style:TextStyle(color:Colors.grey,fontWeight: FontWeight.bold))
                         ],
                       ),
                     ),
                     Text("Leaving: "+snapshot.data.documents[index].data["leavingTime"]+" Arrriving: "+snapshot.data.documents[index].data["arrivingTime"],
-                      style: TextStyle(fontSize: 20),),
+                      style: TextStyle(fontSize: 20,)),
                     snapshot.data.documents[index].data["user"]!=Constants.myName?FlatButton(
                       color: Colors.brown[900],
                       onPressed: () {

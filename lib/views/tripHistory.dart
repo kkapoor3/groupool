@@ -27,6 +27,7 @@ class _tripHistoryState extends State<tripHistory> {
             itemBuilder: (context, index) {
               //return Text(snapshot.data.documents[index].data["nameOfTheTrip"]);
               return Card(
+                color:Colors.brown,
                 child: Column(
                   children: [
                     Text(snapshot.data.documents[index].data["nameOfTheTrip"],
@@ -35,7 +36,7 @@ class _tripHistoryState extends State<tripHistory> {
                           fontWeight: FontWeight.bold
                       ),),
                     Text(snapshot.data.documents[index].data["Source"]+" to "+snapshot.data.documents[index].data["Destination"],
-                        style:TextStyle(fontWeight:FontWeight.bold)),
+                        style:TextStyle(fontWeight:FontWeight.bold,color:Colors.grey)),
                     Text(snapshot.data.documents[index].data["from"]+" to "+snapshot.data.documents[index].data["untill"],
                       style: TextStyle(fontSize: 20),),
 
