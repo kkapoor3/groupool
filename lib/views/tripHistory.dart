@@ -40,7 +40,6 @@ class _tripHistoryState extends State<tripHistory> {
 
                         style:TextStyle(fontWeight:FontWeight.bold,color: Colors.grey)),
 
-                        style:TextStyle(fontWeight:FontWeight.bold,color:Colors.grey)),
                    Text(snapshot.data.documents[index].data["from"]+" to "+snapshot.data.documents[index].data["untill"],
                       style: TextStyle(fontSize: 20),),
 
