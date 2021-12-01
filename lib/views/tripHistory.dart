@@ -3,6 +3,7 @@ import 'package:chatapp/helper/constants.dart';
 import 'package:chatapp/services/database.dart';
 import 'package:chatapp/views/allTrips.dart';
 import 'package:chatapp/views/makeATrip.dart';
+import 'package:chatapp/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,8 +37,11 @@ class _tripHistoryState extends State<tripHistory> {
                           fontWeight: FontWeight.bold
                       ),),
                     Text(snapshot.data.documents[index].data["Source"]+" to "+snapshot.data.documents[index].data["Destination"],
+
+                        style:TextStyle(fontWeight:FontWeight.bold,color: Colors.grey)),
+
                         style:TextStyle(fontWeight:FontWeight.bold,color:Colors.grey)),
-                    Text(snapshot.data.documents[index].data["from"]+" to "+snapshot.data.documents[index].data["untill"],
+                   Text(snapshot.data.documents[index].data["from"]+" to "+snapshot.data.documents[index].data["untill"],
                       style: TextStyle(fontSize: 20),),
 
                   ],
@@ -81,7 +85,13 @@ class _tripHistoryState extends State<tripHistory> {
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Icon(Icons.airport_shuttle),
+              child: Row(
+                children: [
+                  Icon(Icons.airport_shuttle_outlined),
+                  SizedBox(width: 10,),
+                  Text("All Trips",style: simpleTextStyle(),),
+                ],
+              ),
             ),
           ),
 
