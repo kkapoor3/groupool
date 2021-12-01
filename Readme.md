@@ -35,6 +35,6 @@ Find description of each screenshots in the Features.md
 
 <img src="https://user-images.githubusercontent.com/39582048/144168090-6836b0db-da47-486b-b8e1-7e9b923e77ce.png" width=25% height=50%> <img src="https://user-images.githubusercontent.com/39582048/144169233-0bdc9c00-bbf1-40f5-b003-c3aef6584166.png"  width=25% height=50%> <img src="https://user-images.githubusercontent.com/39582048/144169245-c3c8dace-b0c5-4e76-ba59-997c1972ac81.png"  width=25% height=50%>
 
-<img src="https://user-images.githubusercontent.com/39582048/144169471-d89d8125-5f40-4fa0-8bfb-95a96e734f22.png"  width=25% height=50%> <img src="https://user-images.githubusercontent.com/39582048/144169918-12245fbb-c0a0-4680-b700-87c0cc5ad7c8.png"  width=25% height=50%>
+<img src="https://user-images.githubusercontent.com/39582048/144169471-d89d8125-5f40-4fa0-8bfb-95a96e734f22.png"  width=25% height=50%> <img src="https://user-images.githubusercontent.com/39582048/144169918-12245fbb-c0a0-4680-b700-87c0cc5ad7c8.png"  width=25% height=50%> <img src="https://user-images.githubusercontent.com/39582048/144172518-acef4646-2c5a-480e-92db-92d459ba571a.png"  width=25% height=50%> 
 
 
