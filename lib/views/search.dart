@@ -127,8 +127,9 @@ class _SearchState extends State<Search> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Connect"),
+        backgroundColor: Colors.brown[900],
       ),
-      backgroundColor: Colors.brown[900],
+
       body: isLoading
           ? Container(
               child: Center(

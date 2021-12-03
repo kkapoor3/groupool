@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:chatapp/helper/constants.dart';
 import 'package:chatapp/services/database.dart';
 import 'package:chatapp/views/addPeople.dart';
@@ -23,8 +22,7 @@ class _PeopleState extends State<People> {
   bool isAdmin = false;
   List<dynamic> pplList;
   List<dynamic> counts;
-  int counter=0;
-  int prev;
+
   getDoc() async {
     await DatabaseMethods().getUsers(widget.projectId).then((snapshot) {
       setState(() {
@@ -59,27 +57,6 @@ class _PeopleState extends State<People> {
     getDoc();
   }
 
-  Widget counterInc(){
-    return Container(
-        child:Column(
-          children: [
-            Text(counter.toString(),style: simpleTextStyle(),),
-            ElevatedButton.icon(
-                onPressed: () {
-                  // Respond to button press
-                  setState(() {
-                    counter=counter+1;
-                  });
-                },
-                icon: Icon(Icons.add, size: 18),
-                label: Text("add"),
-                style:ElevatedButton.styleFrom(primary: Colors.brown[800])
-            ),
-
-          ],
-        )
-    );
-  }
 
   Widget userList() {
     return haveSearched
