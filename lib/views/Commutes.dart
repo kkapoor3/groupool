@@ -1,8 +1,6 @@
 import 'package:chatapp/helper/constants.dart';
 import 'package:chatapp/services/database.dart';
 import 'package:chatapp/views/chat.dart';
-import 'package:chatapp/views/makeATrip.dart';
-import 'package:chatapp/views/search.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
